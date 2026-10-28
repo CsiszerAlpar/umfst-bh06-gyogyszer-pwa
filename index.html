@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gyógyszer-emlékeztető</title>
+<link rel="manifest" href="/manifest.webmanifest">
+<style>body { font: 18px system-ui, sans-serif; background: #fff; color: #1b2421; max-width: 600px; margin: auto; padding: 16px; }</style>
+</head>
+<body>
+<h1>Mai gyógyszereim</h1>
+<ul id="lista"><li>Betöltés…</li></ul>
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js', { scope: '/' });
+  }
+
+  fetch('/api/adagok.json')
+    .then(function (r) { 
+      if (!r.ok) throw new Error('Hálózati hiba');
+      return r.json(); 
+    })
+    .then(function (adagok) {
+      var ul = document.getElementById('lista');
+      ul.replaceChildren.apply(ul, adagok.map(function (a) {
+        var li = document.createElement('li');
+        li.textContent = a.ido + ' – ' + a.nev + ' (' + a.adag + ')';
+        return li;
+      }));
+    })
+    .catch(function (err) {
+      var ul = document.getElementById('lista');
+      ul.innerHTML = '<li>Nem sikerült betölteni a gyógyszeradagokat. Kérjük, ellenőrizze az internetkapcsolatot!</li>';
+    });
+</script>
+</body>
+</html>
