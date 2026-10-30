@@ -1,6 +1,6 @@
 # A gyógyszer-emlékeztető PWA, ami nem akar felejteni – hibariport
 
-Repó: https://github.com/felhasznalo/umfst-bh06-gyogyszer-pwa
+Repó: https://github.com/CsiszerAlpar/umfst-bh06-gyogyszer-pwa
 Készítette: Csiszer Alpar, Info_LM 3. ev
 
 ## 1. hiba
